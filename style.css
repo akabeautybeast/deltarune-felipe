@@ -1,0 +1,132 @@
+/* ==========================================
+   Bobo de Papel - estilos
+   ========================================== */
+
+:root {
+  --fundo: #0d0a1f;
+  --texto: #f4f1ff;
+  --coracao: #ff2d55;
+  --ciano: #3ee6e0;
+  --amarelo: #ffd23f;
+  --painel: #17123a;
+
+  /* Evita que o conteúdo fique atrás do notch/barras do celular */
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: 'Pixelify Sans', monospace;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+
+#wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  border: 2px solid #2a2150;
+}
+
+
+
+#ui {
+  min-height: 150px;
+  margin-top: 8px;
+}
+
+#btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.b {
+  min-height: 54px;
+  padding: 12px 8px;
+  font: inherit;
+  font-size: 20px;
+  color: var(--texto);
+  background: var(--painel);
+  border: 3px solid var(--texto);
+  cursor: pointer;
+}
+
+/* Botão sozinho (ex.: "Continuar") ocupa a linha toda */
+.b:only-child {
+  grid-column: 1 / -1;
+}
+
+/* Botão selecionado: amarelo com coração na frente */
+.b.sel {
+  color: var(--amarelo);
+  border-color: var(--amarelo);
+}
+
+.b.sel::before {
+  content: '♥ ';
+  color: var(--coracao);
+}
+
+/* ---------- D-pad (celular) ---------- */
+
+#pad {
+  display: none;
+  grid-template-columns: repeat(3, 72px);
+  grid-template-rows: repeat(3, 72px);
+  gap: 6px;
+  justify-content: center;
+  touch-action: none;
+}
+
+#pad button {
+  font-size: 28px;
+  color: var(--texto);
+  background: var(--painel);
+  border: 3px solid var(--ciano);
+  touch-action: none;
+}
+
+#pad button:active {
+  color: var(--fundo);
+  background: var(--ciano);
+}
+
+/* Durante o desvio, esconde o menu... */
+body[data-ph='dodge'] #btns {
+  display: none;
+}
+
+/* ...e mostra o D-pad apenas em telas de toque */
+@media (pointer: coarse) {
+  body[data-ph='dodge'] #pad {
+    display: grid;
+  }
+}
+
+/* ---------- Texto de ajuda ---------- */
+
+p {
+  margin: 8px 0 0;
+  font-size: 13px;
+  text-align: center;
+  opacity: 0.6;
+}
